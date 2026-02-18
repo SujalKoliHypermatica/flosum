@@ -32,7 +32,7 @@ jobs:
     - name: Create JWT key file
       run: |
         mkdir -p assets
-        echo "${{ secrets.PROD_SERVER_KEY }}" | base64 -d > assets/server.key
+        echo -e "${{ secrets.PROD_SERVER_KEY }}" > assets/server.key
  
     - name: Authenticate to Salesforce
       run: sf org login jwt --client-id $CONSUMER_KEY --username $SFDC_USER --jwt-key-file assets/server.key --set-default-dev-hub --alias sfcicd --instance-url $SFDC_URL
