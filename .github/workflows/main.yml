@@ -27,6 +27,12 @@ jobs:
         echo "SFDC_URL=${{ secrets.PROD_SFDC_URL }}" >> $GITHUB_ENV
         echo "SFDC_USER=${{ secrets.PROD_SFDC_USER }}" >> $GITHUB_ENV
         echo "CONSUMER_KEY=${{ secrets.PROD_CONSUMER_KEY }}" >> $GITHUB_ENV
+        echo "Writing JWT key from secret"
+
+    - name: Create JWT key file
+      run: |
+        mkdir -p assets
+        echo "${{ secrets.PROD_SERVER_KEY }}" > assets/server.key
  
     - name: Authenticate to Salesforce
       run: sf org login jwt --client-id $CONSUMER_KEY --username $SFDC_USER --jwt-key-file assets/server.key --set-default-dev-hub --alias sfcicd --instance-url $SFDC_URL
