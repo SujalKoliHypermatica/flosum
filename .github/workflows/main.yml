@@ -30,7 +30,7 @@ jobs:
 
     - name: Decrypt JWT key file
       run: |
-        openssl enc -d -aes-256-cbc -in assets/server.key.enc -out assets/server.key -k ${{ secrets.DECRYPTION_KEY }} -pbkdf2
+        openssl enc -d -aes-256-cbc -pbkdf2 -in assets/server.key.enc -out assets/server.key -k ${{ secrets.DECRYPTION_KEY }}
  
     - name: Authenticate to Salesforce
       run: sf org login jwt --client-id $CONSUMER_KEY --username $SFDC_USER --jwt-key-file assets/server.key --set-default-dev-hub --alias sfcicd --instance-url $SFDC_URL
